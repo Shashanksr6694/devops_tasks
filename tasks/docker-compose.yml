@@ -1,0 +1,26 @@
+wordpress:
+    build: ./wordpress/.
+    links:
+     - mysqldb:mysql
+    environment:
+     - WORDPRESS_DB_NAME=wordpress
+     - WORDPRESS_DB_PASSWORD=wordpress
+     - WORDPRESS_DB_USER=wordpress
+     - WP_DEBUG=true
+     - WP_DEBUG_DISPLAY=false
+     - WP_DEBUG_LOG=true
+    ports:
+     - "8080:80"
+    volumes:
+     - ./code:/code
+     - ./html:/var/www/html
+
+mysqldb:
+    build: ./mysql-5.5/.
+    environment:
+     - MYSQL_DATABASE=wordpress
+     - MYSQL_USER=wordpress
+     - MYSQL_PASSWORD=wordpress
+     - MYSQL_ROOT_PASSWORD=wordpress
+    volumes:
+     - /etc/mysql/:/var/lib/mysql
